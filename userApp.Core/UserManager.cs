@@ -11,12 +11,12 @@ namespace userApp.Core
     {
         private List<DataUserModel> _users = new List<DataUserModel>(); // Лист пользователей
         private readonly HashingService _hashingService = new HashingService(); // Объект класса HashingService
-        private string filePath = "users.txt";
+        private string? filePath = "users.txt";
         private string emailRegex = @"^[a-zA-Z0-9!#$%^&*()+=?{}|~`_/.-]+@(?:gmail|mail)\.(?:ru|com)$"; //регулярное выражение для валидации Email
 
         public void SaveUsers()
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter writer = new StreamWriter(filePath!))
             {
                 foreach (DataUserModel user in _users)
                     writer.WriteLine(user.UserName + "," + user.Password + "," + user.Email);

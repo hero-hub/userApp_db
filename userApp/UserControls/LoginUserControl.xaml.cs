@@ -10,7 +10,7 @@ namespace userApp.UserControls
         public LoginUserControl()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
+            DataContext =  new LoginViewModel();
         }
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {

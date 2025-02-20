@@ -10,15 +10,18 @@ namespace userApp
         {
             InitializeComponent();
         }
+        //UserService userService = new UserService();
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            var registrationView = new RegistrationView();
+            //RegistrationViewModel registrationViewModel = new RegistrationViewModel();
+
+            RegistrationView registrationView = new RegistrationView();
             registrationView.Show();
             this.Close();
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            var loginView = new LoginView();
+            LoginView loginView = new LoginView();
             loginView.Show();
             this.Close();
         }

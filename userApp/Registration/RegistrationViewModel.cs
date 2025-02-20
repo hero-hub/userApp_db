@@ -9,35 +9,33 @@ namespace userApp.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly UserManager _userManager;
-
+        private readonly UserService _userService;//
 
         // Properties
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string RepeatPass { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string RepeatPass { get; set; } = string.Empty;
 
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; } = string.Empty;
 
         public ICommand RegisterCommand { get; }
 
         public RegistrationViewModel()
         {
-            _userManager = new UserManager();
+            _userService = new UserService();//
             RegisterCommand = new RelayCommand(Register);
         }
         private void Register(object parameter)
         {
-            AdvencedUserModel user = new AdvencedUserModel
+            DataUserSQLite user = new DataUserSQLite // 
             {
                 UserName = UserName,
                 Email = Email,
                 Password = Password,
-                RepeatPass = RepeatPass
             };
 
-            int result = _userManager.Register(user);
+            int result = _userService.Register(user, RepeatPass);
 
             ErrorMessage = string.Empty;
             switch (result)

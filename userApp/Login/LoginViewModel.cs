@@ -7,18 +7,21 @@ namespace userApp.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-        private readonly UserManager _userManager;
+        //private readonly UserManager _userManager;
+        private readonly UserService _userService;
         public bool _isInputEnabled;
+        public ICommand LoginCommand { get; }
+        //public ICommand NavigateToRegistrationCommand { get; }
+
+        public string Login { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string ErrorMessage { get; set; } = string.Empty;
 
         public LoginViewModel()
         {
-            _userManager = new UserManager();
+            _userService = new UserService();
             LoginCommand = new RelayCommand(Log);
         }
-
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string ErrorMessage { get; set; }
         public bool IsInputEnabled
         {
             get => _isInputEnabled;
@@ -29,13 +32,9 @@ namespace userApp.Login
             }
         }
 
-
-        public ICommand LoginCommand { get; }
-        public ICommand NavigateToRegistrationCommand { get; }
-
         private void Log(object parameter)
         {
-            int result = _userManager.Signin(Login, Password);
+            int result = _userService.Signin(Login, Password);
 
             ErrorMessage = string.Empty;
             switch (result)

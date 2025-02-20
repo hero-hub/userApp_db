@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using userApp.Domain.Models;
 
 namespace userApp.Core
 {
