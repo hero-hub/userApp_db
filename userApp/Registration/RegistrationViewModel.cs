@@ -10,7 +10,7 @@ namespace userApp.Registration
     public class RegistrationViewModel : BaseViewModel
     {
         private readonly UserService _userService;//
-
+        public DataUserSQLite DataUserSQLite { get; set; }
         // Properties
         public string UserName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -21,10 +21,15 @@ namespace userApp.Registration
 
         public ICommand RegisterCommand { get; }
 
-        public RegistrationViewModel()
+        public RegistrationViewModel(DataUserSQLite dataUserSQLite)
         {
-            _userService = new UserService();//
+            AppDbContext context = new AppDbContext();
+            _userService = new UserService(context);
+
             RegisterCommand = new RelayCommand(Register);
+            //DataUserSQLite = dataUserSQLite;
+            //DataContext = DataUserSQLite;
+            DataUserSQLite = dataUserSQLite;
         }
         private void Register(object parameter)
         {

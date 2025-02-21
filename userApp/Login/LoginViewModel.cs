@@ -1,15 +1,16 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using userApp.Core;
+using userApp.Domain.Models;
 using userApp.Helpers;
 
 namespace userApp.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-        //private readonly UserManager _userManager;
         private readonly UserService _userService;
         public bool _isInputEnabled;
+        public DataUserSQLite DataUserSQLite { get; set; }
         public ICommand LoginCommand { get; }
         //public ICommand NavigateToRegistrationCommand { get; }
 
@@ -17,10 +18,12 @@ namespace userApp.Login
         public string Password { get; set; } = string.Empty;
         public string ErrorMessage { get; set; } = string.Empty;
 
-        public LoginViewModel()
+        public LoginViewModel(DataUserSQLite dataUserSQLite)
         {
-            _userService = new UserService();
+            AppDbContext context = new AppDbContext();
+            _userService = new UserService(context);
             LoginCommand = new RelayCommand(Log);
+            DataUserSQLite = dataUserSQLite;
         }
         public bool IsInputEnabled
         {

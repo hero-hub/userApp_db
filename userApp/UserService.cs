@@ -3,19 +3,22 @@ using System.Text.RegularExpressions;
 using userApp.Core;
 using System.Windows;
 using SQLitePCL;
+using Microsoft.EntityFrameworkCore;
 
 namespace userApp
 {
     public class UserService
     {
-        private readonly AppDbContext _context;
         private readonly HashingService _hashingService = new HashingService();
         private string emailRegex = @"^[a-zA-Z0-9!#$%^&*()+=?{}|~`_/.-]+@(?:gmail|mail)\.(?:ru|com)$";
-        //_context.Users.Load();
-
-        //public UserService()
-        //{
-        //}
+        private readonly AppDbContext _context;
+        
+        public UserService(AppDbContext context)
+        {
+            _context = context;
+        }
+        
+        //_context.Users.Load(); 
 
         // Регистрация
         public int Register(DataUserSQLite user, string RepeatPass)
@@ -26,7 +29,7 @@ namespace userApp
                 string.IsNullOrWhiteSpace(user.Password) ||
                 string.IsNullOrWhiteSpace(RepeatPass))
                 return 0;
-            //MessageBox.Show("not error");
+
             // Валидация почты
             if (!Regex.Match(user.Email, emailRegex).Success) return 1; 
 
