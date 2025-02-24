@@ -5,12 +5,9 @@ namespace userApp.Login
 {
     public partial class LoginView : Window
     {
-        public DataUserSQLite DataUserSQLite { get; set; }
-        public LoginView(DataUserSQLite dataUserSQLite)
+        public LoginView()
         {
             InitializeComponent();
-            DataUserSQLite = dataUserSQLite;
-            DataContext = DataUserSQLite;
         }
     }
 }

@@ -30,6 +30,6 @@
         <Button Content="Зарегистрироваться" Width="150" Margin="10" Command="{Binding RegisterCommand}" FontFamily="Century Gothic"/>
 
         <!-- кнопка Войти -->
-        <Button Content="Войти" Width="150" Margin="10" Click="LoginButton_Click" FontFamily="Century Gothic" />
+        <Button Content="Назад" Command="{Binding GoBackCommand}" Width="100" Margin="10" />
     </StackPanel>
 </UserControl>

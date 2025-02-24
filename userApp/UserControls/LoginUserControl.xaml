@@ -42,6 +42,6 @@
             IsEnabled="{Binding IsInputEnabled}"/>
 
         <!-- кнопка Регистрация -->
-        <Button Content="Регистрация" Width="150" Margin="10" Click="RegistrationButton_Click" FontFamily="Century Gothic" />
+        <Button Content="Назад" Command="{Binding GoBackCommand}" Width="100" Margin="10" />
     </StackPanel>
 </UserControl>

@@ -5,12 +5,13 @@ using userApp.Helpers;
 using userApp.Core;
 using userApp.Domain.Models;
 
-namespace userApp.Registration
+namespace userApp.ViewModels
 {
-    public class RegistrationViewModel : BaseViewModel
+    public class RegistrationViewModel : INotifyRelise
     {
-        private readonly UserService _userService;//
-        public DataUserSQLite DataUserSQLite { get; set; }
+        private readonly UserService _userService = new UserService();
+        private readonly MainWindowViewModel _mainViewModel;
+
         // Properties
         public string UserName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -20,20 +21,18 @@ namespace userApp.Registration
         public string ErrorMessage { get; set; } = string.Empty;
 
         public ICommand RegisterCommand { get; }
-
-        public RegistrationViewModel(DataUserSQLite dataUserSQLite)
+        public ICommand GoBackCommand { get; }
+        public RegistrationViewModel(MainWindowViewModel mainViewModel)
         {
-            AppDbContext context = new AppDbContext();
-            _userService = new UserService(context);
-
+            _userService = new UserService();
+            _mainViewModel = mainViewModel;
             RegisterCommand = new RelayCommand(Register);
-            //DataUserSQLite = dataUserSQLite;
-            //DataContext = DataUserSQLite;
-            DataUserSQLite = dataUserSQLite;
+            GoBackCommand = new RelayCommand(_ => _mainViewModel.ShowMainMenu());
         }
+
         private void Register(object parameter)
         {
-            DataUserSQLite user = new DataUserSQLite // 
+            DataUserModel user = new DataUserModel
             {
                 UserName = UserName,
                 Email = Email,

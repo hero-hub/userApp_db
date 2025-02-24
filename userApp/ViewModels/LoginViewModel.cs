@@ -1,30 +1,27 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using userApp.Core;
-using userApp.Domain.Models;
 using userApp.Helpers;
 
-namespace userApp.Login
+namespace userApp.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : INotifyRelise
     {
-        private readonly UserService _userService;
         public bool _isInputEnabled;
-        public DataUserSQLite DataUserSQLite { get; set; }
+        private readonly UserService _userService = new UserService();
+        private readonly MainWindowViewModel _mainViewModel;
+        public LoginViewModel(MainWindowViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+            LoginCommand = new RelayCommand(Log);
+            GoBackCommand = new RelayCommand(_ => _mainViewModel.ShowMainMenu());
+        }
         public ICommand LoginCommand { get; }
-        //public ICommand NavigateToRegistrationCommand { get; }
+        public ICommand GoBackCommand { get; }
 
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string ErrorMessage { get; set; } = string.Empty;
 
-        public LoginViewModel(DataUserSQLite dataUserSQLite)
-        {
-            AppDbContext context = new AppDbContext();
-            _userService = new UserService(context);
-            LoginCommand = new RelayCommand(Log);
-            DataUserSQLite = dataUserSQLite;
-        }
         public bool IsInputEnabled
         {
             get => _isInputEnabled;

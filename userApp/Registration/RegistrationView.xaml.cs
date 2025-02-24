@@ -5,12 +5,9 @@ namespace userApp.Registration
 {
     public partial class RegistrationView : Window
     {
-        DataUserSQLite dataUserSQLite = new DataUserSQLite();
-        public RegistrationView(dataUserSQLite)
+        public RegistrationView()
         {
             InitializeComponent();
-            DataUserSQLite = dataUserSQLite;
-            DataContext = dataUserSQLite;
         }
     }
 }

@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Регистрация" Height="500" Width="400">
     <Grid>
-        <local:RegistrationUserControl/>
+        <!--<local:RegistrationUserControl/>-->
     </Grid>
 </Window>

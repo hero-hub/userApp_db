@@ -7,6 +7,7 @@ namespace userApp.Domain.Models
     public class DataUserModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public int Id { get; set; }
 
         private string? userName;
 

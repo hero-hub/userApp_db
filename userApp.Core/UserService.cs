@@ -11,17 +11,15 @@ namespace userApp
     {
         private readonly HashingService _hashingService = new HashingService();
         private string emailRegex = @"^[a-zA-Z0-9!#$%^&*()+=?{}|~`_/.-]+@(?:gmail|mail)\.(?:ru|com)$";
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context = new AppDbContext();
         
-        public UserService(AppDbContext context)
+        public UserService()
         {
-            _context = context;
+            _context.Users.Load();
         }
         
-        //_context.Users.Load(); 
-
         // Регистрация
-        public int Register(DataUserSQLite user, string RepeatPass)
+        public int Register(DataUserModel user, string RepeatPass)
         {
             // Пустые поля
             if (string.IsNullOrWhiteSpace(user.UserName) ||
@@ -42,9 +40,9 @@ namespace userApp
                 return 3;
 
             // Хеширование пароля
-            var hashUser = user;
-            hashUser.Password = _hashingService.HashPassword(hashUser.Password);
-            user.Password = hashUser.Password;
+            //DataUserModel hashUser = user;
+            user.Password = _hashingService.HashPassword(user.Password);
+            //user.Password = hashUser.Password;
 
             // Успешная регистрация
             _context.Users.Add(user);
