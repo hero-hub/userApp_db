@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:userApp.UserControls"
+             xmlns:local="clr-namespace:userApp.UserControls" 
+             xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
     
@@ -11,20 +13,20 @@
 
         <!-- Имя пользователя -->
         <TextBlock Text="Имя пользователя:" Margin="5" />
-        <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="250" Margin="5" />
+        <TextBox Text="{Binding UserName}" Width="250" Margin="5" />
 
         <!-- Email -->
         <TextBlock Text="Email:" Margin="5" />
-        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="250" Margin="5" />
+        <TextBox Text="{Binding Email}" Width="250" Margin="5" />
 
         <!-- Пароль -->
         <TextBlock Text="Пароль:" Margin="5" />
-        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="250" Margin="5" />
+        <TextBox Text="{Binding Password}" Width="250" Margin="5" />
 
         <!-- Повтор пароля -->
         <TextBlock Text="Повтор пароля:" Margin="5" />
-        <TextBox Text="{Binding RepeatPass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="250" Margin="5" />
-        <TextBlock Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" Margin="5"/>
+        <TextBox Text="{Binding RepeatPass}" Width="250" Margin="5" />
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="5"/>
 
         <!-- Кнопка Регистрация -->
         <Button Content="Зарегистрироваться" Width="150" Margin="10" Command="{Binding RegisterCommand}" FontFamily="Century Gothic"/>

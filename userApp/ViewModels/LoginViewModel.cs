@@ -21,8 +21,16 @@ namespace userApp.ViewModels
 
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public string ErrorMessage { get; set; } = string.Empty;
-
+        private string _errorMessage = "";
+        private string ErrorMessage { 
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+               
         public bool IsInputEnabled
         {
             get => _isInputEnabled;
@@ -53,8 +61,6 @@ namespace userApp.ViewModels
                     ErrorMessage = "Пользователь не найден";
                     break;
             }
-
-            OnPropertyChanged(nameof(ErrorMessage));
         }
     }
 }

@@ -32,17 +32,13 @@ namespace userApp
             if (!Regex.Match(user.Email, emailRegex).Success) return 1; 
 
             // Пароли не совпадают
-            if (user.Password != RepeatPass)
-                return 2;
+            if (user.Password != RepeatPass) return 2;
 
             // Пользователь уже существует
-            if (_context.Users.Any(u => u.UserName == user.UserName || u.Email == user.Email))
-                return 3;
+            if (_context.Users.Any(u => u.UserName == user.UserName || u.Email == user.Email)) return 3;
 
             // Хеширование пароля
-            //DataUserModel hashUser = user;
             user.Password = _hashingService.HashPassword(user.Password);
-            //user.Password = hashUser.Password;
 
             // Успешная регистрация
             _context.Users.Add(user);
@@ -58,18 +54,11 @@ namespace userApp
                 return 0;
 
             var user = _context.Users.FirstOrDefault(u => u.UserName == login || u.Email == login);
-
-            if (user != null)
-            {
-                if (_hashingService.VerifyPassword(pass, user.Password))
-                    // Успешный вход
-                    return 1;
-                else
-                    // Неверный пароль
-                    return 2;
-            }
-            // Пользователь не найден
-            return 3;
+            
+            // 1 - Успешный вход
+            // 2 - Неверный пароль
+            // 3 - Пользователь не найден
+            return (user != null) ? (_hashingService.VerifyPassword(pass, user.Password) ? 1 : 2) : 3;
         }
     }
 }

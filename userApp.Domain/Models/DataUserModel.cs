@@ -9,13 +9,13 @@ namespace userApp.Domain.Models
         public event PropertyChangedEventHandler? PropertyChanged;
         public int Id { get; set; }
 
-        private string? userName;
+        private string userName = "";
 
-        private string? password;
+        private string password = "";
 
-        private string? email;
+        private string email = "";
 
-        public string? UserName
+        public string UserName
         {
             get => userName;
             set
@@ -24,7 +24,7 @@ namespace userApp.Domain.Models
                 OnPropertyChanged();
             }
         }
-        public string? Password
+        public string Password
         {
             get => password;
             set
@@ -33,7 +33,7 @@ namespace userApp.Domain.Models
                 OnPropertyChanged();
             }
         }
-        public string? Email
+        public string Email
         {
             get => email;
             set
