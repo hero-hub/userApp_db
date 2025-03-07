@@ -1,13 +1,16 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows.Controls;
 using userApp.Core;
 using userApp.Helpers;
+
+//using userApp.Helpers;
 using userApp.UserControls;
 
 
 namespace userApp.ViewModels
 {
-    public class MainWindowViewModel : INotifyRelise
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         private UserControl _currentControl = new UserControl();
         public UserControl CurrentControl
@@ -27,8 +30,12 @@ namespace userApp.ViewModels
 
         public MainWindowViewModel()
         {
+            ShowLoginCommand = new RelayCommand(ShowLogin);
+            ShowRegistrationCommand = new RelayCommand(ShowRegistration);
+            ShowMainMenuCommand = new RelayCommand(ShowMainMenu);
             ShowMainMenu();
         }
+        
 
         // Методы для переключения контролов
         public void ShowLogin()
@@ -46,6 +53,10 @@ namespace userApp.ViewModels
             CurrentControl = new MainControl(this);
         }
 
-
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

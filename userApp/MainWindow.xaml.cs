@@ -1,7 +1,4 @@
 ﻿using System.Windows;
-using userApp.Registration;
-using userApp.Login;
-using userApp.Domain.Models;
 using userApp.ViewModels;
 
 namespace userApp

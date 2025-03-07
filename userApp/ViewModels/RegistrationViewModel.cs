@@ -9,7 +9,7 @@ namespace userApp.ViewModels
 {
     public class RegistrationViewModel : INotifyRelise
     {
-        private readonly UserService _userService = new UserService();
+        private readonly UserService _userService; //= new UserService();
         private readonly MainWindowViewModel _mainViewModel;
 
         // Properties

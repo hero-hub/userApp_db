@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using userApp.Login;
-using userApp.Registration;
+﻿using System.Windows.Controls;
 using userApp.ViewModels;
 
 namespace userApp.UserControls

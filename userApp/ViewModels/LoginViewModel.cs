@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using userApp.Core;
 using userApp.Helpers;
 
 namespace userApp.ViewModels
