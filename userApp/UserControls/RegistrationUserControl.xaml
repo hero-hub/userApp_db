@@ -32,6 +32,9 @@
         <Button Content="Зарегистрироваться" Width="150" Margin="10" Command="{Binding RegisterCommand}" FontFamily="Century Gothic"/>
 
         <!-- кнопка Войти -->
-        <Button Content="Назад" Command="{Binding GoBackCommand}" Width="100" Margin="10" />
+        <Button Content="Назад" 
+                Command="{Binding ChangeStateCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+                CommandParameter="{x:Static viewmodels:AppState.MainMenu}"
+                Width="100" Margin="10" />
     </StackPanel>
 </UserControl>

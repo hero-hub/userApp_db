@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:userApp.UserControls" xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
+             xmlns:local="clr-namespace:userApp.UserControls" 
+             xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
              d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
@@ -11,10 +12,16 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
 
             <!-- Авторизация -->
-            <Button Content="Вход" Command="{Binding ShowLoginCommand}" Width="100" Margin="10" />
-            
+            <Button Content="Вход" 
+                    Command="{Binding ChangeStateCommand}" 
+                    CommandParameter="{x:Static viewmodels:AppState.Login}" 
+                    Width="100" Margin="10" />
+
             <!-- Регистрация -->
-            <Button Content="Регистрация" Command="{Binding ShowRegistrationCommand}" Width="100" Margin="10" />
+            <Button Content="Регистрация" 
+                    Command="{Binding ChangeStateCommand}" 
+                    CommandParameter="{x:Static viewmodels:AppState.Registration}" 
+                    Width="100" Margin="10" />
 
         </StackPanel>
     </Grid>

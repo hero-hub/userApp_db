@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using userApp.Core;
 using userApp.Helpers;
@@ -10,47 +11,55 @@ using userApp.UserControls;
 
 namespace userApp.ViewModels
 {
+    public enum AppState
+    {
+        MainMenu,
+        Login,
+        Registration
+    }
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private UserControl _currentControl = new UserControl();
-        public UserControl CurrentControl
+        private AppState _currentState;
+        
+        public MainWindowViewModel()
         {
-            get => _currentControl;
+            MainControl = new MainControl(this);
+            LoginControl = new LoginUserControl(this);
+            RegistrationControl = new RegistrationUserControl(this);
+
+            ChangeStateCommand = new RelayCommand(ChangeState);
+
+            CurrentState = AppState.MainMenu;
+        }
+
+        public UserControl MainControl { get; }
+        public UserControl LoginControl { get; }
+        public UserControl RegistrationControl { get; }
+        public RelayCommand ChangeStateCommand { get; }
+
+        public AppState CurrentState
+        {
+            get => _currentState;
             set
             {
-                _currentControl = value;
-                OnPropertyChanged(nameof(CurrentControl));
+                _currentState = value;
+                UpdateVisibility(); // Обновляем видимость
+                OnPropertyChanged(nameof(CurrentState));
+            }
+        }
+        private void ChangeState(object parameter)
+        {
+            if (parameter is AppState newState)
+            {
+                CurrentState = newState;
             }
         }
 
-        // Команды для переключения контролов
-        public RelayCommand ShowLoginCommand { get; }
-        public RelayCommand ShowRegistrationCommand { get; }
-        public RelayCommand ShowMainMenuCommand { get; }
-
-        public MainWindowViewModel()
+        private void UpdateVisibility()
         {
-            ShowLoginCommand = new RelayCommand(ShowLogin);
-            ShowRegistrationCommand = new RelayCommand(ShowRegistration);
-            ShowMainMenuCommand = new RelayCommand(ShowMainMenu);
-            ShowMainMenu();
-        }
-        
-
-        // Методы для переключения контролов
-        public void ShowLogin()
-        {
-            CurrentControl = new LoginUserControl(this);
-        }
-
-        public void ShowRegistration()
-        {
-            CurrentControl = new RegistrationUserControl(this);
-        }
-
-        public void ShowMainMenu()
-        {
-            CurrentControl = new MainControl(this);
+            MainControl.Visibility = CurrentState == AppState.MainMenu ? Visibility.Visible : Visibility.Collapsed;
+            LoginControl.Visibility = CurrentState == AppState.Login ? Visibility.Visible : Visibility.Collapsed;
+            RegistrationControl.Visibility = CurrentState == AppState.Registration ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

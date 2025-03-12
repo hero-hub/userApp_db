@@ -1,33 +1,36 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using userApp.Helpers;
 using userApp.Core;
 using userApp.Domain.Models;
+using System.ComponentModel;
 
 namespace userApp.ViewModels
 {
-    public class RegistrationViewModel : INotifyRelise
+    public class RegistrationViewModel : INotifyPropertyChanged
     {
-        private readonly UserService _userService; //= new UserService();
-        private readonly MainWindowViewModel _mainViewModel;
+        private readonly UserService _userService;
+        private string _errorMessage = "";
+        public ICommand RegisterCommand { get; }
 
-        // Properties
         public string UserName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string RepeatPass { get; set; } = string.Empty;
 
-        public string ErrorMessage { get; set; } = string.Empty;
+        private string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
 
-        public ICommand RegisterCommand { get; }
-        public ICommand GoBackCommand { get; }
         public RegistrationViewModel(MainWindowViewModel mainViewModel)
         {
             _userService = new UserService();
-            _mainViewModel = mainViewModel;
             RegisterCommand = new RelayCommand(Register);
-            GoBackCommand = new RelayCommand(_ => _mainViewModel.ShowMainMenu());
         }
 
         private void Register(object parameter)
@@ -41,29 +44,23 @@ namespace userApp.ViewModels
 
             int result = _userService.Register(user, RepeatPass);
 
-            ErrorMessage = string.Empty;
-            switch (result)
+            ErrorMessage = result switch
             {
-                case 0:
-                    ErrorMessage = "Пустые поля";
-                    break;
-                case 1:
-                    ErrorMessage = "Ваша почта не валидна";
-                    break;
-                case 2:
-                    ErrorMessage = "Пароли не совпадают";
-                    break;
-                case 3:
-                    ErrorMessage = "Email уже зарегистрирован";
-                    break;
-                case 4:
-                    ErrorMessage = "Успешная регистрация";
-                    break;
-            }
+                0 => "Пустые поля",
+                1 => "Ваша почта не валидна",
+                2 => "Пароли не совпадают",
+                3 => "Email уже зарегистрирован",
+                4 => "Успешная регистрация",
+                _ => string.Empty
+            };
 
             OnPropertyChanged(nameof(ErrorMessage));
-
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

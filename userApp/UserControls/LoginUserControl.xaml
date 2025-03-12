@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:userApp.UserControls" xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
+             xmlns:local="clr-namespace:userApp.UserControls" 
+             xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
              d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
@@ -39,10 +40,16 @@
 
 
         <!-- кнопка Войти -->
-        <Button Content="Войти" Width="150" Margin="10" Command="{Binding LoginCommand}" FontFamily="Century Gothic" 
-            IsEnabled="{Binding IsInputEnabled}"/>
+        <Button Content="Войти" 
+                Width="150" Margin="10" 
+                Command="{Binding LoginCommand}" 
+                FontFamily="Century Gothic" 
+                IsEnabled="{Binding IsInputEnabled}"/>
 
         <!-- кнопка Назад -->
-        <Button Content="Назад" Command="{Binding GoBackCommand}" Width="100" Margin="10" />
+        <Button Content="Назад" 
+                Command="{Binding ChangeStateCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+                CommandParameter="{x:Static viewmodels:AppState.MainMenu}"
+                Width="100" Margin="10" />
     </StackPanel>
 </UserControl>

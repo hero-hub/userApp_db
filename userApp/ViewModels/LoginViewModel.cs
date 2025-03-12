@@ -1,27 +1,25 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using userApp.Core;
 using userApp.Helpers;
 
 namespace userApp.ViewModels
 {
-    public class LoginViewModel : INotifyRelise
+    public class LoginViewModel : INotifyPropertyChanged
     {
         public bool _isInputEnabled;
         private readonly UserService _userService = new UserService();
-        private readonly MainWindowViewModel _mainViewModel;
+        private string _errorMessage = "";
+
         public LoginViewModel(MainWindowViewModel mainViewModel)
         {
-            _mainViewModel = mainViewModel;
             LoginCommand = new RelayCommand(Log);
-            GoBackCommand = new RelayCommand(_ => _mainViewModel.ShowMainMenu());
         }
         public ICommand LoginCommand { get; }
-        public ICommand GoBackCommand { get; }
 
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        private string _errorMessage = "";
         private string ErrorMessage { 
             get => _errorMessage;
             set
@@ -45,22 +43,19 @@ namespace userApp.ViewModels
         {
             int result = _userService.Signin(Login, Password);
 
-            ErrorMessage = string.Empty;
-            switch (result)
+            ErrorMessage = result switch
             {
-                case 0:
-                    ErrorMessage = "Пустые поля";
-                    break;
-                case 1:
-                    ErrorMessage = "Успешний вход";
-                    break;
-                case 2:
-                    ErrorMessage = "Пароль не верный";
-                    break;
-                case 3:
-                    ErrorMessage = "Пользователь не найден";
-                    break;
-            }
+                0 => "Пустые поля",
+                1 => "Успешный вход",
+                2 => "Пароль неверный",
+                3 => "Пользователь не найден",
+                _ => string.Empty
+            };
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
