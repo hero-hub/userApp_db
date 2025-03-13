@@ -8,19 +8,22 @@ namespace userApp.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        public bool _isInputEnabled;
+        private bool _isInputEnabled;
         private readonly UserService _userService = new UserService();
         private string _errorMessage = "";
 
-        public LoginViewModel(MainWindowViewModel mainViewModel)
+        public LoginViewModel()
         {
-            LoginCommand = new RelayCommand(Log);
+            LoginCommand = new RelayCommand(p => { Log(); });
         }
+
+
         public ICommand LoginCommand { get; }
 
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        private string ErrorMessage { 
+        public string ErrorMessage
+        {
             get => _errorMessage;
             set
             {
@@ -28,7 +31,7 @@ namespace userApp.ViewModels
                 OnPropertyChanged(nameof(ErrorMessage));
             }
         }
-               
+
         public bool IsInputEnabled
         {
             get => _isInputEnabled;
@@ -39,7 +42,7 @@ namespace userApp.ViewModels
             }
         }
 
-        private void Log(object parameter)
+        private void Log()
         {
             int result = _userService.Signin(Login, Password);
 

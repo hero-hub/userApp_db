@@ -6,10 +6,9 @@ namespace userApp.UserControls
 
     public partial class MainControl : UserControl
     {
-        public MainControl(MainWindowViewModel mainViewModel)
+        public MainControl()
         {
             InitializeComponent();
-            DataContext = mainViewModel;
         }
     }
 }

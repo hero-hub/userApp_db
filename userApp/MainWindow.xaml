@@ -5,16 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:userApp.UserControls"
         xmlns:viewmodels="clr-namespace:userApp.ViewModels"
+        xmlns:controls="clr-namespace:userApp.UserControls"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="User Application" Height="500" Width="400">
     <Grid>
-        <!-- Привязываем каждый контроллер к его свойству и управляем видимостью -->
-        <ContentControl Content="{Binding MainControl}" 
-                        Visibility="{Binding MainControl.Visibility}" />
-        <ContentControl Content="{Binding LoginControl}" 
-                        Visibility="{Binding LoginControl.Visibility}" />
-        <ContentControl Content="{Binding RegistrationControl}" 
-                        Visibility="{Binding RegistrationControl.Visibility}" />
+        <!-- MainControl -->
+        <controls:MainControl>
+            <controls:MainControl.Style>
+                <Style TargetType="controls:MainControl">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentStateViewControl}" Value="MainMenu">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:MainControl.Style>
+        </controls:MainControl>
+
+        <!-- LoginUserControl -->
+        <controls:LoginUserControl>
+            <controls:LoginUserControl.Style>
+                <Style TargetType="controls:LoginUserControl">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentStateViewControl}" Value="Login">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:LoginUserControl.Style>
+        </controls:LoginUserControl>
+
+        <!-- RegistrationUserControl -->
+        <controls:RegistrationUserControl>
+            <controls:RegistrationUserControl.Style>
+                <Style TargetType="controls:RegistrationUserControl">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentStateViewControl}" Value="Registration">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:RegistrationUserControl.Style>
+        </controls:RegistrationUserControl>
     </Grid>
 </Window>

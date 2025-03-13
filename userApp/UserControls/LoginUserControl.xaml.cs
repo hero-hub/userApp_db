@@ -8,10 +8,10 @@ namespace userApp.UserControls
 {
     public partial class LoginUserControl : UserControl
     {
-        public LoginUserControl(MainWindowViewModel mainViewModel)
+        public LoginUserControl()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel(mainViewModel);
+            DataContext = new LoginViewModel();
         }
     }
 }

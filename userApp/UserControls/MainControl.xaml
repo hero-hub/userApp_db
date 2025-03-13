@@ -11,18 +11,17 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
 
-            <!-- Авторизация -->
+             <!--Авторизация--> 
             <Button Content="Вход" 
-                    Command="{Binding ChangeStateCommand}" 
-                    CommandParameter="{x:Static viewmodels:AppState.Login}" 
+                    Command="{Binding ViewLogin}" 
                     Width="100" Margin="10" />
 
-            <!-- Регистрация -->
+             <!--Регистрация--> 
             <Button Content="Регистрация" 
-                    Command="{Binding ChangeStateCommand}" 
-                    CommandParameter="{x:Static viewmodels:AppState.Registration}" 
+                    Command="{Binding ViewRegistr}" 
                     Width="100" Margin="10" />
 
         </StackPanel>
+
     </Grid>
 </UserControl>

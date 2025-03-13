@@ -1,62 +1,57 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using userApp.Core;
 using userApp.UserControls;
 
 
 namespace userApp.ViewModels
 {
-    public enum AppState
-    {
-        MainMenu,
-        Login,
-        Registration
-    }
+    //public enum AppState
+    //{
+    //    MainMenu,
+    //    Login,
+    //    Registration
+    //}
+
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private AppState _currentState;
-        
+        private AppState _currentState = AppState.MainMenu;
+        //private LoginViewModel loginViewMod = new LoginViewModel();
+
         public MainWindowViewModel()
         {
-            MainControl = new MainControl(this);
-            LoginControl = new LoginUserControl(this);
-            RegistrationControl = new RegistrationUserControl(this);
+            ViewMainMenu = new RelayCommand(p => { CurrentStateViewControl = AppState.MainMenu; });
+            ViewLogin = new RelayCommand(p => { CurrentStateViewControl = AppState.Login; });
+            ViewRegistr = new RelayCommand(p => { CurrentStateViewControl = AppState.Registration; });
 
-            ChangeStateCommand = new RelayCommand(ChangeState);
-
-            CurrentState = AppState.MainMenu;
+            CurrentStateViewControl = AppState.MainMenu;
         }
 
-        public UserControl MainControl { get; }
-        public UserControl LoginControl { get; }
-        public UserControl RegistrationControl { get; }
-        public RelayCommand ChangeStateCommand { get; }
+        public ICommand ViewMainMenu { get; }
+        public ICommand ViewLogin { get; }
+        public ICommand ViewRegistr { get; }
 
-        public AppState CurrentState
+        public AppState CurrentStateViewControl
         {
             get => _currentState;
             set
             {
                 _currentState = value;
-                UpdateVisibility();
-                OnPropertyChanged(nameof(CurrentState));
-            }
-        }
-        private void ChangeState(object parameter)
-        {
-            if (parameter is AppState newState)
-            {
-                CurrentState = newState;
+                OnPropertyChanged(nameof(CurrentStateViewControl));
             }
         }
 
-        private void UpdateVisibility()
-        {
-            MainControl.Visibility = CurrentState == AppState.MainMenu ? Visibility.Visible : Visibility.Collapsed;
-            LoginControl.Visibility = CurrentState == AppState.Login ? Visibility.Visible : Visibility.Collapsed;
-            RegistrationControl.Visibility = CurrentState == AppState.Registration ? Visibility.Visible : Visibility.Collapsed;
-        }
+        //public LoginViewModel LoginViewMod
+        //{
+        //    get => loginViewMod;
+        //    set
+        //    {
+        //        loginViewMod = value;
+        //        OnPropertyChanged(nameof(LoginViewMod));
+        //    }
+        //}
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

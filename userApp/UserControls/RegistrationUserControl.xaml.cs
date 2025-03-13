@@ -10,10 +10,10 @@ namespace userApp.UserControls
 {
     public partial class RegistrationUserControl : UserControl
     {
-        public RegistrationUserControl(MainWindowViewModel mainViewModel)
+        public RegistrationUserControl()
         {
             InitializeComponent();
-            DataContext = new RegistrationViewModel(mainViewModel);
+            DataContext = new RegistrationViewModel();
         }
     }
 }

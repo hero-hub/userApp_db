@@ -27,7 +27,7 @@ namespace userApp.ViewModels
             }
         }
 
-        public RegistrationViewModel(MainWindowViewModel mainViewModel)
+        public RegistrationViewModel()
         {
             _userService = new UserService();
             RegisterCommand = new RelayCommand(Register);
