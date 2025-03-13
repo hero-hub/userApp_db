@@ -33,7 +33,7 @@
 
         <!-- кнопка Войти -->
         <Button Content="Назад" 
-                Command="{Binding ChangeStateCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+                Command="{Binding DataContext.ChangeStateCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                
                 CommandParameter="{x:Static viewmodels:AppState.MainMenu}"
                 Width="100" Margin="10" />
     </StackPanel>

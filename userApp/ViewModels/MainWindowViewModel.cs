@@ -1,11 +1,7 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using userApp.Core;
-using userApp.Helpers;
-
-//using userApp.Helpers;
 using userApp.UserControls;
 
 
@@ -43,7 +39,7 @@ namespace userApp.ViewModels
             set
             {
                 _currentState = value;
-                UpdateVisibility(); // Обновляем видимость
+                UpdateVisibility();
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
