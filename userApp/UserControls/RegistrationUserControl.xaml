@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:userApp.UserControls" 
-             xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
+             xmlns:viewmodels="clr-namespace:userApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:RegistrationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
     
@@ -28,12 +28,11 @@
         <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="5"/>
 
         <!-- Кнопка Регистрация -->
-        <Button Content="Зарегистрироваться" Width="150" Margin="10" Command="{Binding RegisterCommand}" FontFamily="Century Gothic"/>
+        <Button Content="Зарегистрироваться" Width="150" Margin="10" Command="{Binding RegisterCommand}"/>
 
         <!-- кнопка Назад -->
-        <!--<Button Content="Назад" 
-                Command="{Binding DataContext.ChangeStateCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                
-                CommandParameter="{x:Static viewmodels:AppState.MainMenu}"
-                Width="100" Margin="10" />-->
+        <Button Content="Назад" 
+                Command="{Binding DataContext.ViewMainMenu, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"                
+                Width="150" Margin="10" />
     </StackPanel>
 </UserControl>

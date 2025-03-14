@@ -4,6 +4,9 @@ using System.Linq;
 using userApp.Domain.Models;
 using System.Text.RegularExpressions;
 using userApp.Core;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Serialization;
+using System;
 
 namespace userApp.Core
 {
@@ -11,6 +14,7 @@ namespace userApp.Core
     {
         private List<DataUserModel> _users = new List<DataUserModel>(); // Лист пользователей
         private readonly HashingService _hashingService = new HashingService(); // Объект класса HashingService
+        private SerializeMethods serializeMethods = new SerializeMethods();
         private string? filePath = "users.txt";
         private string emailRegex = @"^[a-zA-Z0-9!#$%^&*()+=?{}|~`_/.-]+@(?:gmail|mail)\.(?:ru|com)$"; //регулярное выражение для валидации Email
 
@@ -45,19 +49,19 @@ namespace userApp.Core
         }
 
         // Регистрация
-        public int Register(AdvencedUserModel user)
+        public int Register(DataUserModel user, string repeatPass)
         {
             if (string.IsNullOrWhiteSpace(user.UserName) ||
                 string.IsNullOrWhiteSpace(user.Email) ||
                 string.IsNullOrWhiteSpace(user.Password) ||
-                string.IsNullOrWhiteSpace(user.RepeatPass))
+                string.IsNullOrWhiteSpace(repeatPass))
                 return 0; // Пустые поля
 
             if (!Regex.Match(user.Email, emailRegex).Success) return 1; // Валидация почты
 
             LoadUsers();
 
-            if (user.Password != user.RepeatPass)
+            if (user.Password != repeatPass)
                 return 2; // Пароли не совпадают
 
             if (_users.Exists(u => u.UserName == user.UserName || u.Email == user.Email))
@@ -69,6 +73,19 @@ namespace userApp.Core
             user.Password = hashUser.Password;
             _users.Add(user);
             SaveUsers();
+
+            //Сериализация Xml
+            serializeMethods.SerializeXml(_users);
+
+            //Десериализация Xml
+            serializeMethods.DeserializeXml();
+
+            //Бинарная сериализация
+            //serializeMethods.SerializeBinary(_users);
+
+            //Бинарная десериализация
+            //serializeMethods.DeserializeBinary();
+
             return 4; // Успешная регистрация
         }
 

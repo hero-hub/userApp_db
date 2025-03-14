@@ -4,9 +4,15 @@ using System.Runtime.CompilerServices;
 
 namespace userApp.Domain.Models
 {
+    //public class DataUserModel
+    //{
+    //    public List<DataUserModel> UserList { get; set; } = new List<DataUserModel>();
+    //}
+    [Serializable]
     public class DataUserModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+
         public int Id { get; set; }
 
         private string userName = "";
@@ -42,16 +48,14 @@ namespace userApp.Domain.Models
                 OnPropertyChanged();
             }
         }
-        //Для LoadUser, возможно получится убрать после создания вьюмодели
+        public DataUserModel()
+        {
+        }
         public DataUserModel(string username, string password, string email)
         {
             UserName = username;
             Password = password;
             Email = email;
-        }
-        public DataUserModel()
-        {
-
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
@@ -59,4 +63,6 @@ namespace userApp.Domain.Models
         }
 
     }
+
+
 }

@@ -9,6 +9,7 @@ namespace userApp.ViewModels
     public class LoginViewModel : INotifyPropertyChanged
     {
         private bool _isInputEnabled;
+        private readonly UserManager _userManager = new UserManager();
         private readonly UserService _userService = new UserService();
         private string _errorMessage = "";
 
@@ -16,7 +17,6 @@ namespace userApp.ViewModels
         {
             LoginCommand = new RelayCommand(p => { Log(); });
         }
-
 
         public ICommand LoginCommand { get; }
 
@@ -44,7 +44,8 @@ namespace userApp.ViewModels
 
         private void Log()
         {
-            int result = _userService.Signin(Login, Password);
+            int result = _userManager.Signin(Login, Password);
+            //int result = _userService.Signin(Login, Password);
 
             ErrorMessage = result switch
             {

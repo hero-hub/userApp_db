@@ -1,8 +1,6 @@
 ﻿using userApp.Domain.Models;
 using System.Text.RegularExpressions;
 using userApp.Core;
-using System.Windows;
-using SQLitePCL;
 using Microsoft.EntityFrameworkCore;
 
 namespace userApp
@@ -43,6 +41,10 @@ namespace userApp
             // Успешная регистрация
             _context.Users.Add(user);
             _context.SaveChanges();
+
+            //Сериализация Xml
+            //UserToXml.SerializeXml(_context);
+
             return 4;
         }
 

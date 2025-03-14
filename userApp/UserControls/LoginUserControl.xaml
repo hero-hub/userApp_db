@@ -7,7 +7,7 @@
              xmlns:viewmodels="clr-namespace:userApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
-    
+
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="20">
         <!-- CheckBox -->
         <CheckBox Name="CheckBox" Content="On/Off authorization" IsChecked="{Binding IsInputEnabled}"/>
@@ -51,4 +51,3 @@
                 Width="100" Margin="10" />
     </StackPanel>
 </UserControl>
-                <!--CommandParameter="{x:Static viewmodels:AppState.MainMenu}" -->

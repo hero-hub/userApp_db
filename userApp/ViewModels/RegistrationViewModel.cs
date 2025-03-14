@@ -9,6 +9,7 @@ namespace userApp.ViewModels
     public class RegistrationViewModel : INotifyPropertyChanged
     {
         private readonly UserService _userService;
+        private readonly UserManager _userManager = new UserManager();
         private string _errorMessage = "";
         public ICommand RegisterCommand { get; }
 
@@ -17,7 +18,7 @@ namespace userApp.ViewModels
         public string Password { get; set; } = string.Empty;
         public string RepeatPass { get; set; } = string.Empty;
 
-        private string ErrorMessage
+        public string ErrorMessage
         {
             get => _errorMessage;
             set
@@ -30,10 +31,10 @@ namespace userApp.ViewModels
         public RegistrationViewModel()
         {
             _userService = new UserService();
-            RegisterCommand = new RelayCommand(Register);
+            RegisterCommand = new RelayCommand(p => { Register(); });
         }
 
-        private void Register(object parameter)
+        private void Register()
         {
             DataUserModel user = new DataUserModel
             {
@@ -42,7 +43,9 @@ namespace userApp.ViewModels
                 Password = Password,
             };
 
-            int result = _userService.Register(user, RepeatPass);
+            
+            int result = _userManager.Register(user, RepeatPass);
+            //int result = _userService.Register(user, RepeatPass);
 
             ErrorMessage = result switch
             {

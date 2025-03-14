@@ -4,10 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:userApp.UserControls"
-        xmlns:viewmodels="clr-namespace:userApp.ViewModels"
+        xmlns:app="clr-namespace:userApp"
         xmlns:controls="clr-namespace:userApp.UserControls"
-        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
-        mc:Ignorable="d"
         Title="User Application" Height="500" Width="400">
     <Grid>
         <!-- MainControl -->
@@ -16,7 +14,7 @@
                 <Style TargetType="controls:MainControl">
                     <Setter Property="Visibility" Value="Collapsed" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentStateViewControl}" Value="MainMenu">
+                        <DataTrigger Binding="{Binding CurrentStateViewControl, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.MainMenu}">
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -30,7 +28,7 @@
                 <Style TargetType="controls:LoginUserControl">
                     <Setter Property="Visibility" Value="Collapsed" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentStateViewControl}" Value="Login">
+                        <DataTrigger Binding="{Binding CurrentStateViewControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.Login}">
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -42,9 +40,9 @@
         <controls:RegistrationUserControl>
             <controls:RegistrationUserControl.Style>
                 <Style TargetType="controls:RegistrationUserControl">
-                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Visibility" Value="Visible" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentStateViewControl}" Value="Registration">
+                        <DataTrigger Binding="{Binding CurrentStateViewControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.Registration}">
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </Style.Triggers>

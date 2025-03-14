@@ -9,6 +9,7 @@ namespace userApp.UserControls
         public MainControl()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
     }
 }
