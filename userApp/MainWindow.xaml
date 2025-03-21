@@ -8,7 +8,7 @@
         xmlns:controls="clr-namespace:userApp.UserControls"
         Title="User Application" Height="500" Width="400">
     <Grid>
-        <!-- MainControl -->
+        <!-- Main -->
         <controls:MainControl>
             <controls:MainControl.Style>
                 <Style TargetType="controls:MainControl">
@@ -22,7 +22,7 @@
             </controls:MainControl.Style>
         </controls:MainControl>
 
-        <!-- LoginUserControl -->
+        <!-- Login -->
         <controls:LoginUserControl>
             <controls:LoginUserControl.Style>
                 <Style TargetType="controls:LoginUserControl">
@@ -36,11 +36,11 @@
             </controls:LoginUserControl.Style>
         </controls:LoginUserControl>
 
-        <!-- RegistrationUserControl -->
+        <!-- Registration -->
         <controls:RegistrationUserControl>
             <controls:RegistrationUserControl.Style>
                 <Style TargetType="controls:RegistrationUserControl">
-                    <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Visibility" Value="Collapsed" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding CurrentStateViewControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.Registration}">
                             <Setter Property="Visibility" Value="Visible" />

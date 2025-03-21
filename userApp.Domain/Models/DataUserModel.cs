@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace userApp.Domain.Models
@@ -13,12 +13,13 @@ namespace userApp.Domain.Models
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public int Id { get; set; }
-
+        [Key]
+        public int ID { get; set; }
+        [Required]
         private string userName = "";
-
+        [Required]
         private string password = "";
-
+        [Required]
         private string email = "";
 
         public string UserName

@@ -11,6 +11,7 @@ namespace userApp.ViewModels
         private bool _isInputEnabled;
         private readonly UserManager _userManager = new UserManager();
         private readonly UserService _userService = new UserService();
+        private readonly PostgreUserManager _pgsqlUserManager = new PostgreUserManager();
         private string _errorMessage = "";
 
         public LoginViewModel()
@@ -44,7 +45,8 @@ namespace userApp.ViewModels
 
         private void Log()
         {
-            int result = _userManager.Signin(Login, Password);
+            int result = _pgsqlUserManager.Signin(Login, Password);
+            //int result = _userManager.Signin(Login, Password); // есть сериализация
             //int result = _userService.Signin(Login, Password);
 
             ErrorMessage = result switch
