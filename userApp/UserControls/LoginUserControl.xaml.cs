@@ -11,7 +11,6 @@ namespace userApp.UserControls
         public LoginUserControl()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
         }
     }
 }

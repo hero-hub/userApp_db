@@ -13,7 +13,6 @@ namespace userApp.UserControls
         public RegistrationUserControl()
         {
             InitializeComponent();
-            DataContext = new RegistrationViewModel();
         }
     }
 }
