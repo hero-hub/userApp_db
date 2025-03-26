@@ -10,6 +10,7 @@ namespace userApp
     {
         MainMenu,
         Login,
-        Registration
+        Registration,
+        Finish
     }
 }

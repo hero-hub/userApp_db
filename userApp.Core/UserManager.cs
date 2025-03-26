@@ -7,9 +7,11 @@ using userApp.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Serialization;
 using System;
+using System.Diagnostics;
 
 namespace userApp.Core
 {
+    //Класс для работы с файлом .txt
     public class UserManager
     {
         private List<DataUserModel> _users = new List<DataUserModel>(); // Лист пользователей
@@ -61,24 +63,29 @@ namespace userApp.Core
 
             LoadUsers();
 
-            if (user.Password != repeatPass)
-                return 2; // Пароли не совпадают
+            // Пароли не совпадают
+            if (user.Password != repeatPass) return 2;
 
-            if (_users.Exists(u => u.UserName == user.UserName || u.Email == user.Email))
-                return 3; // Пользователь уже существует
+            // Пользователь уже существует
+            if (_users.Exists(u => u.UserName == user.UserName || u.Email == user.Email)) return 3; 
 
             // Хеширование пароля
             var hashUser = user;
             hashUser.Password = _hashingService.HashPassword(hashUser.Password);
             user.Password = hashUser.Password;
+
+            //Сохранение с подсчётом времени
+            var stopwatch = Stopwatch.StartNew();
             _users.Add(user);
             SaveUsers();
+            stopwatch.Stop();
+            Debug.WriteLine($"Сохранение пользователя заняло: {stopwatch.ElapsedMilliseconds} мс");
 
             //Сериализация Xml
-            serializeMethods.SerializeXml(_users);
+            //serializeMethods.SerializeXml(_users);
 
             //Десериализация Xml
-            serializeMethods.DeserializeXml();
+            //serializeMethods.DeserializeXml();
 
             //Бинарная сериализация
             //serializeMethods.SerializeBinary(_users);
@@ -86,7 +93,8 @@ namespace userApp.Core
             //Бинарная десериализация
             //serializeMethods.DeserializeBinary();
 
-            return 4; // Успешная регистрация
+            // Успешная регистрация
+            return 4; 
         }
 
         // Авторизация
@@ -97,7 +105,10 @@ namespace userApp.Core
 
             LoadUsers();
 
+            var stopwatch = Stopwatch.StartNew();
             var user = _users.FirstOrDefault(u => u.UserName == login || u.Email == login);
+            stopwatch.Stop();
+            Debug.WriteLine($"Поиск пользователя занял: {stopwatch.ElapsedMilliseconds} мс");
 
             if (user != null)
             {

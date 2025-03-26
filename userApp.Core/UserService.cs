@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace userApp
 {
+    //Класс для работы с SQLite
     public class UserService
     {
         private readonly HashingService _hashingService = new HashingService();

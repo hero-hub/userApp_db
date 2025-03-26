@@ -17,11 +17,13 @@ namespace userApp.ViewModels
             ViewMainMenu = new RelayCommand(p => { CurrentStateViewControl = AppState.MainMenu; });
             ViewLogin = new RelayCommand(p => { CurrentStateViewControl = AppState.Login; });
             ViewRegistr = new RelayCommand(p => { CurrentStateViewControl = AppState.Registration; });
+            ViewFinish = new RelayCommand(p => { CurrentStateViewControl = AppState.Finish; });
         }
 
         public ICommand ViewMainMenu { get; }
         public ICommand ViewLogin { get; }
         public ICommand ViewRegistr { get; }
+        public ICommand ViewFinish { get; }
 
         public AppState CurrentStateViewControl
         {

@@ -8,9 +8,9 @@ namespace userApp.ViewModels
 {
     public class RegistrationViewModel : INotifyPropertyChanged
     {
+        private readonly UserManager _userManager = new UserManager(); 
         private readonly UserService _userService;
-        private readonly UserManager _userManager = new UserManager();
-        private readonly PostgreUserManager _pgsqlUserManager = new PostgreUserManager();
+        private readonly PostgreUserManager _pgsqlUserManager = new PostgreUserManager(); 
 
         private string _errorMessage = "";
         public ICommand RegisterCommand { get; }
@@ -46,9 +46,9 @@ namespace userApp.ViewModels
             };
 
             
-            int result = _pgsqlUserManager.Register(user, RepeatPass);
-            //int result = _userManager.Register(user, RepeatPass);
+            int result = _userManager.Register(user, RepeatPass);
             //int result = _userService.Register(user, RepeatPass);
+            //int result = _pgsqlUserManager.Register(user, RepeatPass);
 
             ErrorMessage = result switch
             {

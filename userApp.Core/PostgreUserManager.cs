@@ -3,9 +3,11 @@ using System.Text.RegularExpressions;
 using userApp.Core;
 using Npgsql;
 using System.Data;
+using System.Diagnostics;
 
 namespace userApp
 {
+    //Класс для работы с PostgreSQL
     public class PostgreUserManager
     {
         private readonly HashingService _hashingService = new HashingService();
@@ -45,19 +47,22 @@ namespace userApp
             // Пароли не совпадают
             if (user.Password != RepeatPass) return 2;
 
+            // Измерение времени
             // Пользователь уже существует
             if (db.Users.Any(u => u.UserName == user.UserName || u.Email == user.Email)) return 3;
+
 
             // Хеширование пароля
             user.Password = _hashingService.HashPassword(user.Password);
 
-            // Успешная регистрация
+            //Сохранение с подсчётом времени
+            var stopwatch = Stopwatch.StartNew();
             db.Users.Add(user);
             db.SaveChanges();
-
-            //Сериализация Xml
-            //UserToXml.SerializeXml(_context);
-
+            stopwatch.Stop();
+            Debug.WriteLine($"Сохранение пользователя заняло: {stopwatch.ElapsedMilliseconds} мс");
+            
+            // Успешная регистрация
             return 4;
         }
 
@@ -68,7 +73,10 @@ namespace userApp
             if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(pass))
                 return 0;
 
+            var stopwatch = Stopwatch.StartNew();
             var user = db.Users.FirstOrDefault(u => u.UserName == login || u.Email == login);
+            stopwatch.Stop();
+            Debug.WriteLine($"Поиск пользователя занял: {stopwatch.ElapsedMilliseconds} мс");
 
             // 1 - Успешный вход
             // 2 - Неверный пароль

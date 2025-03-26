@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="userApp.UserControls.FinishControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:userApp.UserControls"
+             xmlns:viewmodels="clr-namespace:userApp.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:FinishViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="400">
+    <Grid Margin="0,0,0,10">
+        <Image Source="/maketRef/gradient.png" Stretch="UniformToFill" VerticalAlignment="Center" Height="490"/>
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="35,115,0,0" 
+                   TextWrapping="Wrap" 
+                   Text="Register Complite" 
+                   VerticalAlignment="Top" 
+                   Height="120" Width="230"
+                   Foreground="Black"
+                   FontFamily="Montserrat"
+                   FontWeight="ExtraBold"
+                   FontSize="50"/>
+        <TextBlock HorizontalAlignment="Left" 
+                   Margin="35,245,0,0" 
+                   TextWrapping="Wrap" 
+                   Text="Welcom App"
+                   VerticalAlignment="Top" 
+                   Height="50" Width="230"
+                   Foreground="Black"
+                   FontFamily="Montserrat"
+                   FontWeight="SemiBold"
+                   FontSize="24"/>
+    </Grid>
+</UserControl>

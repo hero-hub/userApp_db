@@ -1,28 +1,23 @@
 ﻿using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 using userApp.Core;
-using userApp.Helpers;
 
 namespace userApp.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        private bool _isInputEnabled;
         private readonly UserManager _userManager = new UserManager();
         private readonly UserService _userService = new UserService();
         private readonly PostgreUserManager _pgsqlUserManager = new PostgreUserManager();
-        private string _errorMessage = "";
 
-        public LoginViewModel()
-        {
-            LoginCommand = new RelayCommand(p => { Log(); });
-        }
+        private string _errorMessage = "";
+        private bool _isInputEnabled;
 
         public ICommand LoginCommand { get; }
 
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+
         public string ErrorMessage
         {
             get => _errorMessage;
@@ -43,11 +38,15 @@ namespace userApp.ViewModels
             }
         }
 
+        public LoginViewModel()
+        {
+            LoginCommand = new RelayCommand(p => { Log(); });
+        }
         private void Log()
         {
-            int result = _pgsqlUserManager.Signin(Login, Password);
-            //int result = _userManager.Signin(Login, Password); // есть сериализация
+            int result = _userManager.Signin(Login, Password); // есть сериализация
             //int result = _userService.Signin(Login, Password);
+            //int result = _pgsqlUserManager.Signin(Login, Password);
 
             ErrorMessage = result switch
             {

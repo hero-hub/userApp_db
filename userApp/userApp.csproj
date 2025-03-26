@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="maketRef\boat.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
@@ -24,6 +28,12 @@
   <ItemGroup>
 	<ProjectReference Include="..\userApp.Core\userApp.Core.csproj" />
 	<ProjectReference Include="..\userApp.Domain\userApp.Domain.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Resource Include="maketRef\boat.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

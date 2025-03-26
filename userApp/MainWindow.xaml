@@ -6,48 +6,80 @@
         xmlns:local="clr-namespace:userApp.UserControls"
         xmlns:app="clr-namespace:userApp"
         xmlns:controls="clr-namespace:userApp.UserControls"
+        xmlns:viewmodels="clr-namespace:userApp.ViewModels"
         Title="User Application" Height="500" Width="400">
-    <Grid>
-        <!-- Main -->
-        <controls:MainControl>
-            <controls:MainControl.Style>
-                <Style TargetType="controls:MainControl">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentStateViewControl, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.MainMenu}">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </controls:MainControl.Style>
-        </controls:MainControl>
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel />
+    </Window.DataContext>
+    <Border CornerRadius="20">
+        <Grid>
+            <!-- Main -->
+            <controls:MainControl>
+                <controls:MainControl.Style>
+                    <Style TargetType="controls:MainControl">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentStateViewControl, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.MainMenu}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:MainControl.Style>
+            </controls:MainControl>
 
-        <!-- Login -->
-        <controls:LoginUserControl>
-            <controls:LoginUserControl.Style>
-                <Style TargetType="controls:LoginUserControl">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentStateViewControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.Login}">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </controls:LoginUserControl.Style>
-        </controls:LoginUserControl>
+            <!-- Login -->
+            <controls:LoginUserControl>
+                <controls:LoginUserControl.DataContext>
+                    <viewmodels:LoginViewModel />
+                </controls:LoginUserControl.DataContext>
+                <controls:LoginUserControl.Style>
+                    <Style TargetType="controls:LoginUserControl">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.CurrentStateViewControl, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}" 
+                                         Value="{x:Static app:AppState.Login}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:LoginUserControl.Style>
+            </controls:LoginUserControl>
 
-        <!-- Registration -->
-        <controls:RegistrationUserControl>
-            <controls:RegistrationUserControl.Style>
-                <Style TargetType="controls:RegistrationUserControl">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentStateViewControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Static app:AppState.Registration}">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </controls:RegistrationUserControl.Style>
-        </controls:RegistrationUserControl>
-    </Grid>
+            <!-- Registration -->
+            <controls:RegistrationUserControl>
+                <controls:RegistrationUserControl.DataContext>
+                    <viewmodels:RegistrationViewModel />
+                </controls:RegistrationUserControl.DataContext>
+                <controls:RegistrationUserControl.Style>
+                    <Style TargetType="controls:RegistrationUserControl">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.CurrentStateViewControl, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}" 
+                                         Value="{x:Static app:AppState.Registration}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:RegistrationUserControl.Style>
+            </controls:RegistrationUserControl>
+
+            <!-- FinishControl -->
+            <controls:FinishControl>
+                <controls:FinishControl.DataContext>
+                    <viewmodels:FinishViewModel />
+                </controls:FinishControl.DataContext>
+                <controls:FinishControl.Style>
+                    <Style TargetType="controls:FinishControl">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.CurrentStateViewControl, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}" 
+                             Value="{x:Static app:AppState.Finish}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:FinishControl.Style>
+            </controls:FinishControl>
+        </Grid>
+        </Border>
 </Window>
